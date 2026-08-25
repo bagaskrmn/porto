@@ -63,6 +63,36 @@ document.addEventListener('DOMContentLoaded', () => {
         appearOnScroll.observe(element);
     });
 
+    // Portrait lightbox
+    const photoButton = document.querySelector('.hero-photo');
+    const lightbox = document.querySelector('#photo-lightbox');
+    const lightboxClose = document.querySelector('.lightbox-close');
+
+    const closeLightbox = () => {
+        lightbox.hidden = true;
+        document.body.style.overflow = '';
+    };
+
+    photoButton.addEventListener('click', () => {
+        lightbox.hidden = false;
+        document.body.style.overflow = 'hidden';
+        lightboxClose.focus();
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', event => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !lightbox.hidden) {
+            closeLightbox();
+        }
+    });
+
     // Active Navigation Highlight
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links a');
